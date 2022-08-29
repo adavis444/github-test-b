@@ -18,5 +18,16 @@ jobs:
       - name: Info
         run: |
           echo HOME = $HOME
-          echo pwd = $PWD or $(pwd)
-          echo ls = $(ls)
+          echo pwd = $PWD
+          echo ls:
+          ls
+          echo git remotes:
+          git remote get-url --all origin
+      - name: Update submodules
+        run: git submodule update --init --recursive
+      - name: Update subtrees
+        run: git subtree pull --prefix subtrees/github-test-b git@github.com:adavis444/github-test-b main
+      - name: Commit
+        run: git commit --all -m "Update submodules & subtrees"
+      - name: Push
+        run: git push --set-upstream origin $(git symbolic-ref --short HEAD)
