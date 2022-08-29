@@ -2,6 +2,8 @@ name: Update github-test-a
 
 on:
   push:
+    # branches:
+    #   - main
   workflow_dispatch:
 
 jobs:
@@ -23,4 +25,5 @@ jobs:
             Subtree update from ${{ github.repository }}@${{ github.sha }}
 
             [create-pull-request] automated change
+          author: GitHub <noreply@github.com>
           delete-branch: true
