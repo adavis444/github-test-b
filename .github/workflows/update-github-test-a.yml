@@ -30,6 +30,7 @@ jobs:
           if ! [ -z "$(git status -s)" ]; then
             git add --all
             git commit -m 'Update submodules'
+          fi
       - name: Update subtrees
         run: git subtree pull --prefix subtrees/github-test-b git@github.com:adavis444/github-test-b main
       - name: Commit
@@ -37,5 +38,6 @@ jobs:
           if ! [ -z "$(git status -s)" ]; then
             git add --all
             git commit -m 'Update subtrees'
+          fi
       - name: Push
         run: git push --set-upstream origin $(git symbolic-ref --short HEAD)
