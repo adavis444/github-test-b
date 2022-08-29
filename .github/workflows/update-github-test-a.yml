@@ -25,9 +25,17 @@ jobs:
           git remote get-url --all origin
       - name: Update submodules
         run: git submodule update --init --recursive
+      - name: Commit
+        run: |
+          if ! [ -z "$(git status -s)" ]; then
+            git add --all
+            git commit -m 'Update submodules'
       - name: Update subtrees
         run: git subtree pull --prefix subtrees/github-test-b git@github.com:adavis444/github-test-b main
       - name: Commit
-        run: git commit --all -m "Update submodules & subtrees"
+        run: |
+          if ! [ -z "$(git status -s)" ]; then
+            git add --all
+            git commit -m 'Update subtrees'
       - name: Push
         run: git push --set-upstream origin $(git symbolic-ref --short HEAD)
