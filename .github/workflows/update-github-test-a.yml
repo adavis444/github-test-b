@@ -2,7 +2,6 @@ name: Update github-test-a
 
 on:
   push:
-    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
@@ -10,10 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/checkout@v3
         with:
           repository: 'adavis444/github-test-a'
           submodules: 'recursive'
+      - uses: actions/checkout@v3
+        with:
+          path: 'subtrees/github-test-b'
       - name: Info
         run: |
           echo HOME = $HOME
