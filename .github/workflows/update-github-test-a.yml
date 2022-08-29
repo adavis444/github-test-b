@@ -12,11 +12,14 @@ jobs:
         with:
           repository: 'adavis444/github-test-a'
           submodules: 'recursive'
+          token: ${{ secrets.PAT }}
       - uses: actions/checkout@v3
         with:
           path: 'subtrees/github-test-b'
       - name: Info
         run: |
+          echo branch:
+          echo ${{ github.head_ref }}
           echo HOME = $HOME
           echo pwd = $PWD
           echo ls:
