@@ -2,6 +2,8 @@ name: Update github-test-a
 
 on:
   push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -11,12 +13,16 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: 'adavis444/github-test-a'
-          submodules: 'recursive'
+          token: ${{ secrets.PAT }}
       - uses: actions/checkout@v3
         with:
           path: 'subtrees/github-test-b'
-      - name: Info
-        run: |
-          echo HOME = $HOME
-          echo pwd = $PWD or $(pwd)
-          echo ls = $(ls)
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.PAT }}
+          commit-message: |
+            Subtree update from ${{ github.repository }}@${{ github.sha }}
+
+            [create-pull-request] automated change
+          delete-branch: true
