@@ -15,9 +15,12 @@ jobs:
       - uses: actions/checkout@v3
         with:
           path: 'subtrees/github-test-b'
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Create Pull Request
+        uses: peter-evans@create-pull-request@v4
         with:
-          commit_message: Update subtrees from ${{ github.repository }}@${{ github.sha }}
-          branch: github-actions-update-subtree
-          add_options: '--all'
-          create_branch: true
+          token: ${{ secrets.PAT }}
+          commit-message: |
+            Subtree update from ${{ github.repository }}@${{ github.sha }}
+
+            [create-pull-request] automated change
+          delete-branch: true
